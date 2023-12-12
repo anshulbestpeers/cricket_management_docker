@@ -1,0 +1,42 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On macOS with MacPorts:
+#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: mydatabase  # Update to match the database name in docker-compose.yml
+  username: myuser      # Update to match the database user in docker-compose.yml
+  password: mypassword  # Update to match the database password in docker-compose.yml
+  host: db              # Update to match the service name in docker-compose.yml
+
+test:
+  <<: *default
+  database: mydatabase_test  # Update to match the test database name in docker-compose.yml
+  username: myuser           # Update to match the database user in docker-compose.yml
+  password: mypassword       # Update to match the database password in docker-compose.yml
+  host: db                   # Update to match the service name in docker-compose.yml
+
+production:
+  <<: *default
+  database: mydatabase_production  # Update to match the production database name in docker-compose.yml
+  username: myuser                # Update to match the database user in docker-compose.yml
+  password: <%= ENV["POSTGRES_PASSWORD"] %>  # Use environment variable for security
+  host: db                        # Update to match the service name in docker-compose.yml

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag dom_id(player) do %>
+  <div  >
+    <div>
+      <h2 ><%= player.name %></h2>
+      <p ><%= player.runs %></p>
+    </div>
+    <div>
+      <%= link_to "Edit", edit_player_path(player) %>
+      <%= link_to "Delete", player_path(player), data: { turbo_method: :delete, turbo_action: "click->players#destroy" } %>
+      </div>
+  </div>
+<% end %>

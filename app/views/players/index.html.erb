@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Players</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Players</h1>
+
+  <%= turbo_frame_tag 'players' do %>
+    <%= render @players %>
+  <% end %>
+
+  <%= turbo_stream_from "players" %>
+
+  <%= turbo_frame_tag 'new_player' do %>
+    <%= link_to "Add Player", new_player_path %>
+  <% end %>
+</div>
+</body>
+</html>

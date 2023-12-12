@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Form</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Player Form</h1>
+
+  <%= form_with(model: player, local: true, data: { turbo_action: "submit->players#create" }) do |form| %>
+    <div class="form-group">
+      <div class="input-field">
+        <%= form.label :name %>
+        <%= form.text_field :name, required: true %>
+      </div>
+
+      <div class="input-field">
+        <%= form.label :runs %>
+        <%= form.text_field :runs, required: true %>
+      </div>
+
+      <div class="submit-button">
+        <%= form.submit player.new_record? ? "Add Player" : "Update Player" %>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('turbo:submit-end', function(event) {
+        if (event.detail.success) {
+          if (<%= player.new_record? %>) {
+            event.target.reset();
+          }
+        }
+      });
+    </script>
+  <% end %>
+</div>
+</body>
+</html>
